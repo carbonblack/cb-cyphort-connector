@@ -76,16 +76,14 @@ class CyphortProvider(BinaryAnalysisProvider):
             res = self.session.post(url, headers=self.headers, files=filesdict, data=payload, verify=False)
             log.info("Submitted: %s HTTP CODE: %d" % (md5sum, res.status_code)) #, res.headers))
 
-            if res.status_code == 200:
-                j = res.json()
-                print j
-                print res.content
+            if res.status_code != 200:
+                raise AnalysisTemporaryError(message=res.content, retry_in=120)
 
         except Exception as e:
             log.error("an exception occurred while submitting to cyphort: %s %s" % (md5sum, e))
             raise AnalysisTemporaryError(message=e.message, retry_in=120)
 
-        retries = 20
+        retries = 5
         while retries:
             sleep(10)
             result = self.check_result_for(md5sum)
@@ -93,7 +91,7 @@ class CyphortProvider(BinaryAnalysisProvider):
                 return result
             retries -= 1
 
-        raise AnalysisTemporaryError("Maximum retries (20) exceeded submitting to Cyphort", retry_in=120)
+        raise AnalysisTemporaryError(message="Maximum retries (20) exceeded submitting to Cyphort", retry_in=120)
 
 
 class CyphortConnector(DetonationDaemon):
@@ -103,7 +101,12 @@ class CyphortConnector(DetonationDaemon):
 
     @property
     def num_deep_scan_threads(self):
-        return 1
+        return 3
+
+    @property
+    def filter_spec(self):
+        max_module_len = 10 * 1024 * 1024
+        return '(os_type:windows OR os_type:osx) orig_mod_len:[1 TO %d]' % max_module_len
 
     def get_provider(self):
         return CyphortProvider(self.cyphort_url, self.cyphort_api_key)
