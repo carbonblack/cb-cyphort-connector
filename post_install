@@ -1,0 +1,7 @@
+#!/bin/sh
+
+chkconfig --add cb-cyphort-bridge
+chkconfig --level 345 cb-cyphort-bridge on
+
+# not auto-starting because conf needs to be updated
+#/etc/init.d/cb-cyphort-bridge start

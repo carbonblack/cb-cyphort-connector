@@ -1,0 +1,29 @@
+#!/usr/bin/env python
+
+
+import sys
+import cbopensource.connectors.cyphort.bridge as cbcyphortbridge
+
+
+
+if __name__ == "__main__":
+    name = "carbonblack_cyphort_bridge"
+    daemon = cbcyphortbridge.CyphortConnector(name, "/etc/cb/integrations/carbonblack_cyphort_bridge/carbonblack_cyphort_bridge.conf")
+    if len(sys.argv) == 2:
+        if 'start' == sys.argv[1]:
+            daemon.start()
+        elif 'stop' == sys.argv[1]:
+            daemon.stop()
+        elif 'restart' == sys.argv[1]:
+            daemon.restart()
+        elif 'version' == sys.argv[1]:
+            print "%s - version %s" % (name, cbcyphortbridge.version.__version__)
+        else:
+            print "Unknown command: %s" % sys.argv[1]
+            sys.exit(2)
+
+    else:
+        print "Usage: %s start|stop|restart|version" % sys.argv[0]
+        sys.exit(2)
+
+    sys.exit(0)
