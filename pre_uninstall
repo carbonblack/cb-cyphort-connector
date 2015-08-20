@@ -1,5 +1,5 @@
 #!/bin/sh
 
-/etc/init.d/cb-cyphort-bridge stop
+/etc/init.d/cb-cyphort-connector stop
 
-chkconfig --del cb-cyphort-bridge
+chkconfig --del cb-cyphort-connector

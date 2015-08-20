@@ -20,10 +20,10 @@ def get_data_files(rootdir):
             results.append(("/%s" % dirname, flist))
     return results
 
-data_files = get_data_files("src/root")
+data_files = get_data_files("root")
 
 setup(
-    name='python-cb-cyphort-bridge',
+    name='python-cb-cyphort-connector',
     version=version.__version__,
     url='http://www.carbonblack.com/',
     license='Commercial',

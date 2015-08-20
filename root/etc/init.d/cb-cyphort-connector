@@ -10,9 +10,9 @@
 # Source function library.
 . /etc/rc.d/init.d/functions
 
-exec="/usr/share/cb/integrations/carbonblack_cyphort_bridge/carbonblack_cyphort_bridge"
+exec="/usr/share/cb/integrations/cyphort/cb-cyphort-connector"
 prog="cb-cyphort-bridge"
-pidfile="/var/run/cb/integrations/carbonblack_cyphort_bridge.pid"
+pidfile="/var/run/cb/integrations/cyphort.pid"
 
 [ -f /etc/cb/cb.conf ] || {
     echo Carbon Black Enterprise Server setup has not been finalized.
