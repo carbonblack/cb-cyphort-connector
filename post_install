@@ -1,5 +1,6 @@
 #!/bin/sh
 
+mkdir -f /usr/share/cb/integrations/cyphort/db
 chkconfig --add cb-cyphort-connector
 chkconfig --level 345 cb-cyphort-connector on
 

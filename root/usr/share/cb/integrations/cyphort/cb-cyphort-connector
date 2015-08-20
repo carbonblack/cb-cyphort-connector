@@ -8,7 +8,8 @@ from cbopensource.connectors.cyphort import __version__
 
 if __name__ == "__main__":
     name = "cyphort"
-    daemon = cbcyphortbridge.CyphortConnector(name, "/etc/cb/integrations/cyphort/connector.conf")
+    daemon = cbcyphortbridge.CyphortConnector(name, configfile="/etc/cb/integrations/cyphort/connector.conf",
+                                              work_directory="/usr/share/cb/integrations/cyphort/db")
     if len(sys.argv) == 2:
         if 'start' == sys.argv[1]:
             daemon.start()

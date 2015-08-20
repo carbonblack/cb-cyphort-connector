@@ -5,7 +5,7 @@ import sys
 
 sys.path.insert(0, "src/")
 
-from cbcyphortbridge import version
+from cbopensource.connectors.cyphort import __version__
 from distutils.core import setup
 
 
@@ -24,7 +24,7 @@ data_files = get_data_files("root")
 
 setup(
     name='python-cb-cyphort-connector',
-    version=version.__version__,
+    version=__version__,
     url='http://www.carbonblack.com/',
     license='Commercial',
     author='Carbon Black',
