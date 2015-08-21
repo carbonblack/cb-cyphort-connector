@@ -18,7 +18,7 @@ class CyphortTest(unittest.TestCase):
         self.config = SafeConfigParser()
         self.config.read(config_path)
 
-        self.cyphort_provider = CyphortProvider(self.config.get("bridge", "cyphort_url"),
+        self.cyphort_provider = CyphortProvider('cyphort-test', self.config.get("bridge", "cyphort_url"),
                                                 self.config.get("bridge", "cyphort_api_key"))
 
     def test_submit_md5sum(self):

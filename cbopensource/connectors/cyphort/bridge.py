@@ -18,8 +18,8 @@ log = logging.getLogger(__name__)
 
 
 class CyphortProvider(BinaryAnalysisProvider):
-    def __init__(self, cyphort_url, cyphort_apikey):
-        super(CyphortProvider, self).__init__('cyphort')         # TODO: should be based on self.name (of the connector)
+    def __init__(self, name, cyphort_url, cyphort_apikey):
+        super(CyphortProvider, self).__init__(name)
         self.cyphort_url = cyphort_url
         self.cyphort_apikey = cyphort_apikey
         self.headers = {'Authorization': self.cyphort_apikey}
@@ -82,7 +82,7 @@ class CyphortProvider(BinaryAnalysisProvider):
             log.error("an exception occurred while submitting to cyphort: %s %s" % (md5sum, e))
             raise AnalysisTemporaryError(message=e.message, retry_in=120)
 
-        retries = 5
+        retries = 20
         while retries:
             sleep(10)
             result = self.check_result_for(md5sum)
@@ -100,7 +100,7 @@ class CyphortConnector(DetonationDaemon):
 
     @property
     def num_deep_scan_threads(self):
-        return 3
+        return 2
 
     @property
     def filter_spec(self):
@@ -108,7 +108,7 @@ class CyphortConnector(DetonationDaemon):
         return '(os_type:windows OR os_type:osx) orig_mod_len:[1 TO %d]' % max_module_len
 
     def get_provider(self):
-        return CyphortProvider(self.cyphort_url, self.cyphort_api_key)
+        return CyphortProvider(self.name, self.cyphort_url, self.cyphort_api_key)
 
     def get_metadata(self):
         return cbint.utils.feed.generate_feed(self.name, summary="Cyphort",
