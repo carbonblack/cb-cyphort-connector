@@ -1,16 +1,17 @@
 __author__ = 'jgarman'
 
-from cbopensource.connectors.cyphort.bridge import CyphortProvider
-import cbopensource.connectors.cyphort.bridge
 import unittest
 from ConfigParser import SafeConfigParser
 import os
 from hashlib import md5
 
+from cbopensource.connectors.cyphort.bridge import CyphortProvider
+from cbopensource.connectors.cyphort import bridge
+
 
 class CyphortTest(unittest.TestCase):
     def setUp(self):
-        bridge_file = cbopensource.connectors.cyphort.bridge.__file__
+        bridge_file = bridge.__file__
         config_path = os.path.join(os.path.dirname(os.path.abspath(bridge_file)), "testing.conf")
 
         self.test_file = os.path.join(os.path.dirname(os.path.abspath(__file__)), "data", "putty.exe")

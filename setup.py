@@ -31,10 +31,10 @@ setup(
     author_email='support@carbonblack.com',
     description='Carbon Black Cyphort Bridge',
     long_description=__doc__,
-    packages=['cbcyphortbridge', 'cbopensource', 'cbopensource.connectors', 'cbopensource.connectors.cyphort'],
+    packages=['cbopensource', 'cbopensource.connectors', 'cbopensource.connectors.cyphort'],
     data_files=data_files,
-    package_dir = {'cbcyphortbridge': 'src/cbcyphortbridge'},
-    package_data={'cbcyphortbridge': ['content/*']},
+    package_dir = {'cbopensource': 'cbopensource'},
+    package_data={'cbopensource.connectors.cyphort': ['content/*']},
     options={'bdist_rpm': {'post_install': 'post_install', 'pre_uninstall': 'pre_uninstall'}},
     platforms='any',
     classifiers=[

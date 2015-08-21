@@ -2,9 +2,9 @@
 
 
 import sys
+
 import cbopensource.connectors.cyphort.bridge as cbcyphortbridge
 from cbopensource.connectors.cyphort import __version__
-
 
 if __name__ == "__main__":
     name = "cyphort"
