@@ -68,7 +68,7 @@ class CyphortProvider(BinaryAnalysisProvider):
         log.info("Submitting binary %s to Cyphort" % md5sum)
         try:
             filesdict = { 'file': binary_file_stream.read() } # open(file, 'rb')}
-            file_meta_json = { 'file_name': md5sum }
+            file_meta_json = { 'file_name': "CarbonBlack-Upload-%s" % md5sum }
             payload = {'file_meta_json': json.dumps(file_meta_json)}
             url = "%s%s" % (self.cyphort_url, "/cyadmin/cgi-bin/file_submit")
 
