@@ -104,8 +104,14 @@ class CyphortConnector(DetonationDaemon):
 
     @property
     def filter_spec(self):
+        filters = []
         max_module_len = 10 * 1024 * 1024
-        return '(os_type:windows OR os_type:osx) orig_mod_len:[1 TO %d]' % max_module_len
+        filters.append('(os_type:windows OR os_type:osx) orig_mod_len:[1 TO %d]' % max_module_len)
+        additional_filter_requirements = self.get_config_string("binary_filter_query", None)
+        if additional_filter_requirements:
+            filters.append(additional_filter_requirements)
+
+        return ' '.join(filters)
 
     def get_provider(self):
         return CyphortProvider(self.name, self.cyphort_url, self.cyphort_api_key)
