@@ -1,6 +1,6 @@
 # -*- mode: python -*-
 a = Analysis(['scripts/cb-cyphort-connector'],
-             pathex=['/home/builduser/git/cb-cyphort-connector'],
+             pathex=['.'],
              hiddenimports=['unicodedata'],
              hookspath=None,
              runtime_hooks=None)
@@ -12,6 +12,6 @@ exe = EXE(pyz,
           a.datas,
           name='cb-cyphort-connector',
           debug=False,
-          strip=None,
+          strip=False,
           upx=True,
           console=True )
