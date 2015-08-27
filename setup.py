@@ -2,18 +2,9 @@
 
 from cbopensource.connectors.cyphort import __version__
 
-try:
-    from setuptools.core import setup
-    from setuptools.command.install import install
-    from setuptools.command.build import build
-    from setuptools.core import Command
-    from setuptools.command.bdist_rpm import bdist_rpm
-except ImportError:
-    from distutils.core import setup
-    from distutils.command.install import install
-    from distutils.command.build import build
-    from distutils.core import Command
-    from distutils.command.bdist_rpm import bdist_rpm
+from distutils.core import setup
+from distutils.core import Command
+from distutils.command.bdist_rpm import bdist_rpm
 
 from distutils import log
 from distutils.file_util import write_file
@@ -81,14 +72,8 @@ class install_cb(Command):
     def run(self):
         for f in self.data_files:
             if isinstance(f, str):
-                # it's a simple file, so copy it
-                f = convert_path(f)
-                if self.warn_dir:
-                    self.warn("setup script did not provide a directory for "
-                              "'%s' -- installing right in '%s'" %
-                              (f, self.install_dir))
-                (out, _) = self.copy_file(f, self.install_dir)
-                self.outfiles.append(out)
+                # don't copy files without path information
+                pass
             else:
                 # it's a tuple with path to install to and a list of files
                 dir = convert_path(f[0])

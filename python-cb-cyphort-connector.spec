@@ -53,4 +53,5 @@ chkconfig --level 345 cb-cyphort-connector on
 chkconfig --del cb-cyphort-connector
 
 
-%files -f INSTALLED_FILES%defattr(-,root,root)
+%files -f INSTALLED_FILES
+%defattr(-,root,root)
