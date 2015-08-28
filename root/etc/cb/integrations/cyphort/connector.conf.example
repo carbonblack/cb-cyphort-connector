@@ -29,15 +29,10 @@ cyphort_api_key=
 cyphort_url=
 
 ;
-; Interval to perform the checking of binaries against Cyphort (in minutes)
-; (this is the time to sleep if we are caught up with binaries)
+; binary_filter_query
+; filter out binaries from analysis by Cyphort. By default- don't analyze binaries signed by Microsoft.
 ;
-binary_check_interval=5
-
-;
-; Number of binaries to query in each batch
-;
-binary_batch_size=500
+binary_filter_query=-digsig_publisher:"Microsoft Corporation"
 
 ;
 ; restore_feed_on_restart
