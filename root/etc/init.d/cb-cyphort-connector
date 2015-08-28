@@ -14,12 +14,6 @@ exec="/usr/share/cb/integrations/cyphort/cb-cyphort-connector"
 prog="cb-cyphort-connector"
 pidfile="/var/run/cb/integrations/cyphort.pid"
 
-[ -f /etc/cb/cb.conf ] || {
-    echo Carbon Black Enterprise Server setup has not been finalized.
-    echo Run /usr/share/cb/cbinit to initialize the server instance.
-    exit 1
-}
-
 lockfile=/var/lock/subsys/$prog
 
 start() {
