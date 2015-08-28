@@ -119,7 +119,7 @@ class CyphortConnector(DetonationDaemon):
     def get_metadata(self):
         return cbint.utils.feed.generate_feed(self.name, summary="Cyphort",
                         tech_data="There are no requirements to share any data with Carbon Black to use this feed.",
-                        provider_url="http://cyphort.com/", icon_path='',
+                        provider_url="http://cyphort.com/", icon_path='/usr/share/cb/integrations/cyphort/cyphort.png',
                         display_name="Cyphort hits", category="Connectors")
 
     def validate_config(self):
