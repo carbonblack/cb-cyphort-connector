@@ -150,23 +150,29 @@ scripts = {
 setup(
     name='python-cb-cyphort-connector',
     version=__version__,
-    url='http://www.carbonblack.com/',
+    url='https://github.com/carbonblack/cb-cyphort-connector',
     license='MIT',
-    author='Carbon Black',
-    author_email='support@carbonblack.com',
+    author='Bit9 + Carbon Black Developer Network',
+    author_email='dev-support@bit9.com',
     description='Carbon Black Cyphort Bridge',
-    long_description=__doc__,
     packages=['cbopensource', 'cbopensource.connectors', 'cbopensource.connectors.cyphort'],
     data_files=data_files,
     platforms='any',
     classifiers=[
-        'Environment :: Web Environment',
+        'Development Status :: 4 - Beta',
+
+        # Indicate who your project is intended for
         'Intended Audience :: Developers',
-        'Intended Audience :: System Administrators',
-        'License :: MIT',
-        'Operating System :: OS Independent',
-        'Programming Language :: Python',
-        'Topic :: Software Development :: Libraries :: Python Modules'
+
+        # Pick your license as you wish (should match "license" above)
+         'License :: OSI Approved :: MIT License',
+
+        # Specify the Python versions you support here. In particular, ensure
+        # that you indicate whether you support Python 2, Python 3 or both.
+        'Programming Language :: Python :: 2',
+        'Programming Language :: Python :: 2.6',
+        'Programming Language :: Python :: 2.7',
     ],
+    keywords='carbonblack bit9',
     cmdclass={'install_cb': install_cb, 'bdist_binaryrpm': bdist_binaryrpm}
 )

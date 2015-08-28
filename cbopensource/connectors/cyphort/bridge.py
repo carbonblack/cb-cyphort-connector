@@ -100,7 +100,7 @@ class CyphortConnector(DetonationDaemon):
 
     @property
     def num_deep_scan_threads(self):
-        return 2
+        return 4
 
     @property
     def filter_spec(self):
