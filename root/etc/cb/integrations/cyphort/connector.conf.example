@@ -35,10 +35,10 @@ cyphort_url=
 binary_filter_query=-digsig_publisher:"Microsoft Corporation" is_executable_image:true is_64bit:false
 
 ;
-; restore_feed_on_restart
-; reads previously received alerts on startup
+; legacy_feed_directory
+; Import feed reports from the old version of the Cyphort connector the first time the new daemon runs.
 ;
-restore_feed_on_restart=1
+legacy_feed_directory=/usr/share/cb/integrations/carbonblack_cyphort_bridge/feed_backup
 
 
 ;

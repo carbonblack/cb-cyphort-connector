@@ -51,6 +51,8 @@ class CyphortProvider(BinaryAnalysisProvider):
                 severity = float(j.get('analysis_array', [{}])[0].get('malware_severity', -1))
         except Exception as e:
             log.error("query_cyphort: an exception occurred while querying cyphort for %s: %s" % (md5sum, e))
+            import traceback
+            log.error(traceback.format_exc())
             raise AnalysisTemporaryError(message=e.message, retry_in=120)
         else:
             if severity > 0:
@@ -80,6 +82,8 @@ class CyphortProvider(BinaryAnalysisProvider):
 
         except Exception as e:
             log.error("an exception occurred while submitting to cyphort: %s %s" % (md5sum, e))
+            import traceback
+            log.error(traceback.format_exc())
             raise AnalysisTemporaryError(message=e.message, retry_in=120)
 
         retries = 20
