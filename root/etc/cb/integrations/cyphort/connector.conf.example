@@ -32,7 +32,7 @@ cyphort_url=
 ; binary_filter_query
 ; filter out binaries from analysis by Cyphort. By default- don't analyze binaries signed by Microsoft.
 ;
-binary_filter_query=-digsig_publisher:"Microsoft Corporation"
+binary_filter_query=-digsig_publisher:"Microsoft Corporation" is_executable_image:true is_64bit:false
 
 ;
 ; restore_feed_on_restart
