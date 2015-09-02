@@ -60,7 +60,8 @@ class CyphortProvider(BinaryAnalysisProvider):
                 malware_name = malware_details.get('malware_name', '')
                 return AnalysisResult(message="Found malware (%s)" % malware_name,
                                       extended_message=malware_details,
-                                      analysis_version=1, score=int(severity*100))
+                                      analysis_version=1, score=int(severity*100),
+                                      link="http://www.cyphort.com")
             else:
                 return AnalysisResult(score=0)
 
