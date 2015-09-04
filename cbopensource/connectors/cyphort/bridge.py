@@ -90,7 +90,7 @@ class CyphortProvider(BinaryAnalysisProvider):
 
             try:
                 response = json.loads(res)
-                event_id = response['details']['event_id']
+                event_id = response['detail']['event_id']
             except Exception as e:
                 log.error("Could not get event_id from Cyphort for MD5sum %s" % md5sum)
 
