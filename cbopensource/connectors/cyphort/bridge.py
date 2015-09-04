@@ -25,7 +25,7 @@ class CyphortProvider(BinaryAnalysisProvider):
         self.headers = {'Authorization': self.cyphort_apikey}
         self.session = requests.Session()
 
-    def check_result_for(self, md5sum):
+    def check_result_for(self, md5sum, event_id=None):
         """
         query the cyphort api to get a report on an md5
         returns a dictionary
@@ -58,10 +58,15 @@ class CyphortProvider(BinaryAnalysisProvider):
             if severity > 0:
                 malware_details = j.get('analysis_details', {})
                 malware_name = malware_details.get('malware_name', '')
+                if event_id:
+                    link = "%s%s%d" % (self.cyphort_url, "/cyadmin/index.html?event_id=", event_id)
+                else:
+                    link = "%s" % self.cyphort_url
+
                 return AnalysisResult(message="Found malware (%s)" % malware_name,
                                       extended_message=malware_details,
                                       analysis_version=1, score=int(severity*100),
-                                      link="http://www.cyphort.com")
+                                      link=link)
             else:
                 return AnalysisResult(score=0)
 
@@ -69,6 +74,8 @@ class CyphortProvider(BinaryAnalysisProvider):
 
     def analyze_binary(self, md5sum, binary_file_stream):
         log.info("Submitting binary %s to Cyphort" % md5sum)
+
+        event_id = None
         try:
             filesdict = { 'file': binary_file_stream.read() } # open(file, 'rb')}
             file_meta_json = { 'file_name': "CarbonBlack-Upload-%s" % md5sum }
@@ -76,10 +83,16 @@ class CyphortProvider(BinaryAnalysisProvider):
             url = "%s%s" % (self.cyphort_url, "/cyadmin/cgi-bin/file_submit")
 
             res = self.session.post(url, headers=self.headers, files=filesdict, data=payload, verify=False)
-            log.info("Submitted: %s HTTP CODE: %d" % (md5sum, res.status_code)) #, res.headers))
+            log.info("Submitted: %s HTTP CODE: %d" % (md5sum, res.status_code))
 
             if res.status_code != 200:
                 raise AnalysisTemporaryError(message=res.content, retry_in=120)
+
+            try:
+                response = json.loads(res)
+                event_id = response['details']['event_id']
+            except Exception as e:
+                log.error("Could not get event_id from Cyphort for MD5sum %s" % md5sum)
 
         except Exception as e:
             log.error("an exception occurred while submitting to cyphort: %s %s" % (md5sum, e))
@@ -90,7 +103,7 @@ class CyphortProvider(BinaryAnalysisProvider):
         retries = 20
         while retries:
             sleep(10)
-            result = self.check_result_for(md5sum)
+            result = self.check_result_for(md5sum, event_id=event_id)
             if result:
                 return result
             retries -= 1
