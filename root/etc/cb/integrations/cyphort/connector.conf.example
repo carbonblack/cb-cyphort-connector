@@ -32,13 +32,13 @@ cyphort_url=
 ; binary_filter_query
 ; filter out binaries from analysis by Cyphort. By default- don't analyze binaries signed by Microsoft.
 ;
-binary_filter_query=-digsig_publisher:"Microsoft Corporation" is_executable_image:true is_64bit:false
+binary_filter_query=-digsig_publisher:"Microsoft Corporation" is_executable_image:true
 
 ;
 ; legacy_feed_directory
 ; Import feed reports from the old version of the Cyphort connector the first time the new daemon runs.
 ;
-legacy_feed_directory=/usr/share/cb/integrations/carbonblack_cyphort_bridge/feed_backup
+; legacy_feed_directory=/usr/share/cb/integrations/carbonblack_cyphort_bridge/feed_backup
 
 
 ;
