@@ -89,7 +89,7 @@ class CyphortProvider(BinaryAnalysisProvider):
                 raise AnalysisTemporaryError(message=res.content, retry_in=120)
 
             try:
-                response = json.loads(res)
+                response = res.json()
                 event_id = response['detail']['event_id']
             except Exception as e:
                 log.error("Could not get event_id from Cyphort for MD5sum %s" % md5sum)
