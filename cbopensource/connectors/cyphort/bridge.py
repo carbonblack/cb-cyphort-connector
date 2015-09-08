@@ -18,12 +18,13 @@ log = logging.getLogger(__name__)
 
 
 class CyphortProvider(BinaryAnalysisProvider):
-    def __init__(self, name, cyphort_url, cyphort_apikey):
+    def __init__(self, name, cyphort_url, cyphort_apikey, cyphort_sslverify):
         super(CyphortProvider, self).__init__(name)
         self.cyphort_url = cyphort_url
         self.cyphort_apikey = cyphort_apikey
         self.headers = {'Authorization': self.cyphort_apikey}
         self.session = requests.Session()
+        self.sslverify = cyphort_sslverify
 
     def check_result_for(self, md5sum, event_id=None):
         """
@@ -42,7 +43,7 @@ class CyphortProvider(BinaryAnalysisProvider):
 
         try:
             log.debug("Checking: %s" % url)
-            r = self.session.get(url, headers=self.headers, verify=False)
+            r = self.session.get(url, headers=self.headers, verify=self.sslverify)
             j = r.json()
             status_code = j.get('status', -1)
             if status_code != 0:
@@ -82,7 +83,7 @@ class CyphortProvider(BinaryAnalysisProvider):
             payload = {'file_meta_json': json.dumps(file_meta_json)}
             url = "%s%s" % (self.cyphort_url, "/cyadmin/cgi-bin/file_submit")
 
-            res = self.session.post(url, headers=self.headers, files=filesdict, data=payload, verify=False)
+            res = self.session.post(url, headers=self.headers, files=filesdict, data=payload, verify=self.sslverify)
             log.info("Submitted: %s HTTP CODE: %d" % (md5sum, res.status_code))
 
             if res.status_code != 200:
@@ -132,7 +133,7 @@ class CyphortConnector(DetonationDaemon):
         return ' '.join(filters)
 
     def get_provider(self):
-        return CyphortProvider(self.name, self.cyphort_url, self.cyphort_api_key)
+        return CyphortProvider(self.name, self.cyphort_url, self.cyphort_api_key, self.cyphort_sslverify)
 
     def get_metadata(self):
         return cbint.utils.feed.generate_feed(self.name, summary="Cyphort",
@@ -146,6 +147,7 @@ class CyphortConnector(DetonationDaemon):
         self.check_required_options(["cyphort_url", "cyphort_api_key"])
         self.cyphort_url = self.get_config_string("cyphort_url", None)
         self.cyphort_api_key = self.get_config_string("cyphort_api_key", None)
+        self.cyphort_sslverify = self.get_config_boolean("cyphort_server_sslverify", False)
 
         return True
 

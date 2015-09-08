@@ -27,11 +27,12 @@ Any errors will be logged into `/var/log/cb/integrations/cyphort/cyphort.log`.
 
 ## Troubleshooting
 
-If you suspect a problem, please first look at the Yara connector logs found here: 
+If you suspect a problem, please first look at the Cyphort connector logs found here: 
 `/var/log/cb/integrations/cyphort/cyphort.log`
 (There might be multiple files as the logger "rolls over" when the log file hits a certain size).
 
 If you want to re-run the analysis across your binaries:
+
 1. Stop the service: `service cb-cyphort-connector stop`
 2. Remove the database file: `rm /usr/share/cb/integrations/cyphort/db/sqlite.db`
 3. Remove the feed from your Cb server's Threat Intelligence page

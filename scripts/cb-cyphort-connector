@@ -11,7 +11,7 @@ if __name__ == "__main__":
     name = "cyphort"
 
     # set the path to the CA certificate PEM file to our local cache
-    cacert_pem_path = "/usr/share/cb/integrations/wildfire/cacert.pem"
+    cacert_pem_path = "/usr/share/cb/integrations/cyphort/cacert.pem"
     if os.path.isfile(cacert_pem_path):
         os.environ["REQUESTS_CA_BUNDLE"] = cacert_pem_path
 

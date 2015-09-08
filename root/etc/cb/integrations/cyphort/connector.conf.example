@@ -29,6 +29,11 @@ cyphort_api_key=
 cyphort_url=
 
 ;
+; Validate Cyphort API server SSL certificate
+; Set to "0" for a local Cyphort appliance, or "1" if connecting to the cloud instance
+cyphort_server_sslverify=0
+
+;
 ; binary_filter_query
 ; filter out binaries from analysis by Cyphort. By default- don't analyze binaries signed by Microsoft.
 ;
