@@ -1,6 +1,6 @@
 %define name python-cb-cyphort-connector
-%define version 2.0
-%define unmangled_version 2.0
+%define version 2.1
+%define unmangled_version 2.1
 %define release 1
 %global _enable_debug_package 0
 %global debug_package %{nil}
@@ -34,9 +34,7 @@ python setup.py install_cb --root=$RPM_BUILD_ROOT --record=INSTALLED_FILES
 %clean
 rm -rf $RPM_BUILD_ROOT
 
-%post
-#!/bin/sh
-
+%posttrans
 mkdir -p /usr/share/cb/integrations/cyphort/db
 chkconfig --add cb-cyphort-connector
 chkconfig --level 345 cb-cyphort-connector on
@@ -46,11 +44,14 @@ chkconfig --level 345 cb-cyphort-connector on
 
 
 %preun
-#!/bin/sh
-
 /etc/init.d/cb-cyphort-connector stop
 
-chkconfig --del cb-cyphort-connector
+# only delete the chkconfig entry when we uninstall for the last time,
+# not on upgrades
+if [ "X$1" = "X0" ]
+then
+    chkconfig --del cb-cyphort-connector
+fi
 
 
 %files -f INSTALLED_FILES
