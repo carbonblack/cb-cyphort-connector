@@ -7,6 +7,12 @@ Cyphort's multi-method behavioral detection technology and threat intelligence--
 deliver threat scores used in Carbon Black to enhance detection, response and remediation
 efforts.
 
+The Cyphort connector submits binaries collected by Carbon Black to a Cyphort
+appliance for binary analysis. The results are collected and placed into an Intelligence
+Feed on your Carbon Black server. The feed will then tag any binaries executed on your
+endpoints identified as malware by Cyphort. Only binaries submitted by the connector
+for analysis will be included in the generated Intelligence Feed.
+
 ## Installation Quickstart
 
 As root on your Carbon Black or other RPM based 64-bit Linux distribution server:
