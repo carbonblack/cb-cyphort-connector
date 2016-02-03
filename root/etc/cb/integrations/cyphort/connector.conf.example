@@ -37,7 +37,7 @@ cyphort_server_sslverify=0
 ; binary_filter_query
 ; filter out binaries from analysis by Cyphort. By default- don't analyze binaries signed by Microsoft.
 ;
-binary_filter_query=-digsig_publisher:"Microsoft Corporation" is_executable_image:true
+binary_filter_query=is_executable_image:true -(digsig_publisher:"Microsoft Corporation" and digsig_result:"Signed")
 
 ;
 ; legacy_feed_directory
