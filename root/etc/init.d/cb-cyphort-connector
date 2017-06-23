@@ -10,7 +10,7 @@
 # Source function library.
 . /etc/rc.d/init.d/functions
 
-exec="/usr/share/cb/integrations/cyphort/cb-cyphort-connector"
+exec="/usr/share/cb/integrations/cyphort/bin/cb-cyphort-connector"
 prog="cb-cyphort-connector"
 pidfile="/var/run/cb/integrations/cyphort.pid"
 

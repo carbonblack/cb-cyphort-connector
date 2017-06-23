@@ -113,6 +113,11 @@ class CyphortProvider(BinaryAnalysisProvider):
 
 
 class CyphortConnector(DetonationDaemon):
+
+    @property
+    def integration_name(self):
+        return 'Cb Cyphort Connector 2.2.3'
+
     @property
     def num_quick_scan_threads(self):
         return 1
