@@ -1,5 +1,3 @@
-__author__ = 'jgarman'
-
 from cbint.utils.detonation import DetonationDaemon, ConfigurationError
 from cbint.utils.detonation.binary_analysis import (BinaryAnalysisProvider, AnalysisPermanentError,
                                                     AnalysisTemporaryError, AnalysisResult)
@@ -13,6 +11,8 @@ try:
 except ImportError:
     import json
 
+from cbint.utils.tls import get_tlsv1_2_session
+
 
 log = logging.getLogger(__name__)
 
@@ -23,7 +23,7 @@ class CyphortProvider(BinaryAnalysisProvider):
         self.cyphort_url = cyphort_url
         self.cyphort_apikey = cyphort_apikey
         self.headers = {'Authorization': self.cyphort_apikey}
-        self.session = requests.Session()
+        self.session = get_tlsv1_2_session()
         self.sslverify = cyphort_sslverify
 
     def check_result_for(self, md5sum, event_id=None):
@@ -116,7 +116,7 @@ class CyphortConnector(DetonationDaemon):
 
     @property
     def integration_name(self):
-        return 'Cb Cyphort Connector 2.2.3'
+        return 'Cb Cyphort Connector 2.2.4'
 
     @property
     def num_quick_scan_threads(self):
