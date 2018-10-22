@@ -116,7 +116,7 @@ class CyphortConnector(DetonationDaemon):
 
     @property
     def integration_name(self):
-        return 'Cb Cyphort Connector 2.2.5'
+        return 'Cb Cyphort Connector 2.2.6'
 
     @property
     def num_quick_scan_threads(self):
